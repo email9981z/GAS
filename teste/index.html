@@ -1598,6 +1598,263 @@
             margin-bottom: 24px;
         }
 
+        
+        /* ==================== IMPROVED PAYMENT DESIGN ==================== */
+        .payment-option-card {
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--bg-white);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .payment-option-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 85, 255, 0.12);
+        }
+
+        .payment-option-card.selected {
+            border-color: var(--primary);
+            background-color: rgba(0, 85, 255, 0.02);
+            box-shadow: 0 8px 20px rgba(0, 85, 255, 0.1);
+        }
+
+        .payment-option-card.pix-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8faff 100%);
+            border-color: #32bcad33;
+        }
+        
+        .payment-option-card.pix-card:hover {
+            border-color: #32bcad;
+            box-shadow: 0 12px 24px rgba(50, 188, 173, 0.15);
+        }
+
+        .payment-option-icon {
+            width: 54px;
+            height: 54px;
+            background: var(--primary-light);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .pix-card .payment-option-icon {
+            background: rgba(50, 188, 173, 0.1);
+            color: #32bcad;
+        }
+
+        .payment-option-title {
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .payment-option-price {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .pix-card .payment-option-price {
+            color: #32bcad;
+        }
+
+        .payment-option-desc {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .payment-badge-promo {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #32bcad;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            box-shadow: 0 4px 8px rgba(50, 188, 173, 0.2);
+        }
+
+        .payment-badge-delivery {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--warning);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        /* ==================== CONFIRMATION MODAL ==================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--bg-white);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            color: var(--warning);
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .modal-text {
+            font-size: 1rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-modal {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-modal-pix {
+            background: #32bcad;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-modal-pix:hover {
+            background: #2ba396;
+            transform: translateY(-2px);
+        }
+
+        .btn-modal-continue {
+            background: #f0f2f5;
+            color: var(--text-gray);
+        }
+
+        .btn-modal-continue:hover {
+            background: #e4e6eb;
+        }
+
+        /* ==================== CONTACT FORM ==================== */
+        .contact-form {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .contact-form label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+        }
+
+        .contact-form input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .btn-send-form {
+            background: var(--primary);
+            color: white;
+            margin-top: 10px;
+        }
+
+        .success-message {
+            padding: 20px;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+
         /* ==================== PAYMENT OPTIONS SECTION ==================== */
         .payment-options-container {
             padding: 20px;
@@ -3300,6 +3557,7 @@
                 });
             }
 
+            
             function renderPaymentOptions() {
                 const item = cart[0];
                 const baseTotal = item.price * item.quantity;
@@ -3314,29 +3572,27 @@
                             <div class="review-header-title"><i class="fas fa-credit-card"></i> Opções de Pagamento</div>
                         </div>
                         <div class="payment-options-container">
-                            <div class="payment-option-card" id="pay-now-pix">
-                                <div class="payment-option-header">
-                                    <div class="payment-option-icon"><i class="fas fa-qrcode"></i></div>
-                                    <div class="payment-option-title">Pagar Agora - Pix</div>
-                                </div>
+                            <div class="payment-option-card pix-card" id="pay-now-pix">
+                                <div class="payment-badge-promo">Desconto Ativo</div>
+                                <div class="payment-option-icon"><i class="fas fa-qrcode"></i></div>
+                                <div class="payment-option-title">Pagar com Pix</div>
                                 <div class="payment-option-price">R$ ${baseTotal.toFixed(2).replace('.', ',')}</div>
-                                <div class="payment-option-desc">Liberação imediata do pedido e entrega prioritária.</div>
-                                <button class="payment-action-btn btn-pay-now">Pagar <i class="fas fa-chevron-right"></i></button>
+                                <div class="payment-option-desc">Liberação imediata, entrega prioritária e o melhor preço garantido.</div>
+                                <button class="payment-action-btn btn-pay-now" style="margin-top:10px; background: #32bcad; border-radius:12px;">Pagar Agora <i class="fas fa-chevron-right"></i></button>
                             </div>
 
                             <div class="payment-option-card" id="pay-on-delivery">
-                                <div class="payment-badge">Taxa de Serviço</div>
-                                <div class="payment-option-header">
-                                    <div class="payment-option-icon"><i class="fas fa-truck-ramp-box"></i></div>
-                                    <div class="payment-option-title">Pagar na Entrega</div>
-                                </div>
+                                <div class="payment-badge-delivery">Sem Desconto</div>
+                                <div class="payment-option-icon"><i class="fas fa-truck-ramp-box"></i></div>
+                                <div class="payment-option-title">Pagar na Entrega</div>
                                 <div class="payment-option-price">R$ ${deliveryTotal.toFixed(2).replace('.', ',')}</div>
-                                <div class="payment-option-desc">Pague ao entregador via Cartão ou Dinheiro no ato da entrega.</div>
-                                <button class="payment-action-btn btn-pay-delivery">Prosseguir <i class="fas fa-chevron-right"></i></button>
+                                <div class="payment-option-desc">Pague ao entregador via Cartão ou Dinheiro. (Inclui taxas administrativas)</div>
+                                <button class="payment-action-btn btn-pay-delivery" style="margin-top:10px; border-radius:12px;">Prosseguir <i class="fas fa-chevron-right"></i></button>
                             </div>
                         </div>
                     </div>
                 `;
+
 
                 const cartWrapper = document.getElementById('cart-content-wrapper');
                 if (cartWrapper) {
@@ -3357,9 +3613,11 @@
                 });
             }
 
+            
             function handleFinalPayment(type) {
                 const item = cart[0];
                 const totalValue = (item.price * item.quantity).toFixed(2);
+                const deliveryTotalStr = (item.price * item.quantity * 1.35).toFixed(2).replace('.', ',');
                 
                 if (type === 'pix') {
                     const validPrices = {
@@ -3375,9 +3633,89 @@
                         showErrorModal();
                     }
                 } else {
-                    alert('Pedido confirmado para pagamento na entrega!');
+                    showDeliveryConfirmation(totalValue);
                 }
             }
+
+            function showDeliveryConfirmation(totalValue) {
+                const modalHTML = `
+                    <div class="modal-overlay" id="delivery-modal">
+                        <div class="modal-content" id="delivery-modal-content">
+                            <div id="modal-step-1">
+                                <div class="modal-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                                <h3 class="modal-title">Você tem certeza?</h3>
+                                <p class="modal-text">Ao escolher o pagamento na entrega, você <b>perde a promoção exclusiva do Pix</b> e pagará o valor integral sem descontos.</p>
+                                <div class="modal-buttons">
+                                    <button class="btn-modal btn-modal-pix" id="modal-back-to-pix">
+                                        <i class="fas fa-qrcode"></i> Quero o desconto do Pix
+                                    </button>
+                                    <button class="btn-modal btn-modal-continue" id="modal-continue-delivery">
+                                        Continuar sem desconto
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="modal-step-2" style="display:none;">
+                                <h3 class="modal-title">Dados para Entrega</h3>
+                                <p class="modal-text">Preencha seus dados para finalizarmos seu pedido na entrega.</p>
+                                <form class="contact-form" id="delivery-contact-form">
+                                    <div class="form-group">
+                                        <label>Nome Completo</label>
+                                        <input type="text" id="delivery-name" placeholder="Seu nome completo" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-mail</label>
+                                        <input type="email" id="delivery-email" placeholder="seu@email.com" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>CPF</label>
+                                        <input type="text" id="delivery-cpf" placeholder="000.000.000-00" required>
+                                    </div>
+                                    <button type="submit" class="btn-modal btn-send-form">Enviar Pedido</button>
+                                </form>
+                            </div>
+                            <div id="modal-step-3" style="display:none;">
+                                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                                <h3 class="modal-title">Pedido Recebido!</h3>
+                                <p class="modal-text">Obrigado! Recebemos sua solicitação de pagamento na entrega. Em breve entraremos em contato para confirmar os detalhes.</p>
+                                <button class="btn-modal btn-modal-continue" id="modal-close-final">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.insertAdjacentHTML('beforeend', modalHTML);
+                const modal = document.getElementById('delivery-modal');
+                
+                // Show modal with animation
+                setTimeout(() => modal.classList.add('active'), 10);
+
+                // Event Listeners
+                document.getElementById('modal-back-to-pix').addEventListener('click', () => {
+                    modal.classList.remove('active');
+                    setTimeout(() => modal.remove(), 300);
+                    handleFinalPayment('pix');
+                });
+
+                document.getElementById('modal-continue-delivery').addEventListener('click', () => {
+                    document.getElementById('modal-step-1').style.display = 'none';
+                    document.getElementById('modal-step-2').style.display = 'block';
+                });
+
+                document.getElementById('delivery-contact-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    document.getElementById('modal-step-2').style.display = 'none';
+                    document.getElementById('modal-step-3').style.display = 'block';
+                });
+
+                document.getElementById('modal-close-final').addEventListener('click', () => {
+                    modal.classList.remove('active');
+                    setTimeout(() => {
+                        modal.remove();
+                        location.reload(); // Reset state
+                    }, 300);
+                });
+            }
+
 
             // Function to show error modal
             function showErrorModal() {
