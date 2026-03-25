@@ -2172,8 +2172,8 @@
         }
 
         .payment-option-card.pix-card.selected .btn-pay-now {
-            background: linear-gradient(135deg, #0055ff 0%, #0033cc 100%) !important;
-            box-shadow: 0 14px 40px rgba(0, 85, 255, 0.45);
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%) !important;
+            box-shadow: 0 14px 40px rgba(40, 167, 69, 0.45);
             transform: scale(1.05);
             color: #ffffff;
             font-weight: 950;
@@ -2182,8 +2182,8 @@
         }
 
         @keyframes pixButtonGlow {
-            0%, 100% { box-shadow: 0 14px 40px rgba(0, 85, 255, 0.45); }
-            50% { box-shadow: 0 14px 50px rgba(0, 85, 255, 0.6); }
+            0%, 100% { box-shadow: 0 14px 40px rgba(40, 167, 69, 0.45); }
+            50% { box-shadow: 0 14px 50px rgba(40, 167, 69, 0.6); }
         }
 
         /* Efeito de Carregamento */
@@ -3869,7 +3869,7 @@
                                 <div class="payment-option-title">Pagar com Pix</div>
                                 <div class="payment-option-price">R$ ${baseTotal.toFixed(2).replace('.', ',')}</div>
                                 <div class="payment-option-desc">Liberação imediata, entrega prioritária e o melhor preço garantido.</div>
-                                <button class="payment-action-btn btn-pay-now" style="margin-top:10px; background: #32bcad; border-radius:12px;"><span class="btn-text">Prosseguir <i class="fas fa-chevron-right"></i></span></button>
+                                <button class="payment-action-btn btn-pay-now" style="margin-top:10px; background: #0055ff; border-radius:12px;"><span class="btn-text">Prosseguir <i class="fas fa-chevron-right"></i></span></button>
                             </div>
 
                             <div class="payment-option-card" id="pay-on-delivery">
@@ -4129,6 +4129,15 @@
         updateCartBadge();
         updateStickyHeader();
 
+        // Resetar o estado de carregamento ao voltar para a página
+        window.addEventListener('pageshow', function(event) {
+            const loadingBtns = document.querySelectorAll('.btn-loading');
+            loadingBtns.forEach(btn => {
+                btn.classList.remove('btn-loading');
+                const spinner = btn.querySelector('.spinner');
+                if (spinner) spinner.remove();
+            });
+        });
     </script>
 </body>
 </html>
