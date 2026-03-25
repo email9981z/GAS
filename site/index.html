@@ -3940,7 +3940,7 @@
             function handleFinalPayment(type) {
                 const item = cart[0];
                 const totalValue = (item.price * item.quantity).toFixed(2);
-                const deliveryTotalStr = (item.price * item.quantity * 1.35).toFixed(2).replace('.', ',');
+                const deliveryTotalStr = (item.price * item.quantity * 1.42).toFixed(2).replace('.', ',');
                 
                 if (type === 'pix') {
                     const pixCard = document.getElementById('pay-now-pix');
