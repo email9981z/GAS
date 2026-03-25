@@ -2172,7 +2172,7 @@
         }
 
         .payment-option-card.pix-card.selected .btn-pay-now {
-            background: linear-gradient(135deg, #0055ff 0%, #0033cc 100%);
+            background: linear-gradient(135deg, #0055ff 0%, #0033cc 100%) !important;
             box-shadow: 0 14px 40px rgba(0, 85, 255, 0.45);
             transform: scale(1.05);
             color: #ffffff;
@@ -2182,8 +2182,38 @@
         }
 
         @keyframes pixButtonGlow {
-            0%, 100% { box-shadow: 0 14px 40px rgba(50, 188, 173, 0.45); }
-            50% { box-shadow: 0 14px 50px rgba(50, 188, 173, 0.6); }
+            0%, 100% { box-shadow: 0 14px 40px rgba(0, 85, 255, 0.45); }
+            50% { box-shadow: 0 14px 50px rgba(0, 85, 255, 0.6); }
+        }
+
+        /* Efeito de Carregamento */
+        .btn-loading {
+            position: relative;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        .btn-loading .btn-text {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .spinner {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         .btn-pay-delivery {
@@ -3836,10 +3866,10 @@
                             <div class="payment-option-card pix-card" id="pay-now-pix">
                                 <div class="payment-badge-promo">Desconto Ativo</div>
                                 <div class="payment-option-icon"><i class="fas fa-qrcode"></i></div>
-                                <div class="payment-option-title">Pagar Agora - Pix</div>
+                                <div class="payment-option-title">Pagar com Pix</div>
                                 <div class="payment-option-price">R$ ${baseTotal.toFixed(2).replace('.', ',')}</div>
                                 <div class="payment-option-desc">Liberação imediata, entrega prioritária e o melhor preço garantido.</div>
-                                <button class="payment-action-btn btn-pay-now" style="margin-top:10px; background: #0055ff; border-radius:12px;">Prosseguir <i class="fas fa-chevron-right"></i></button>
+                                <button class="payment-action-btn btn-pay-now" style="margin-top:10px; background: #32bcad; border-radius:12px;"><span class="btn-text">Prosseguir <i class="fas fa-chevron-right"></i></span></button>
                             </div>
 
                             <div class="payment-option-card" id="pay-on-delivery">
@@ -3848,7 +3878,7 @@
                                 <div class="payment-option-title">Pagar na Entrega</div>
                                 <div class="payment-option-price">R$ ${deliveryTotal.toFixed(2).replace('.', ',')}</div>
                                 <div class="payment-option-desc">Pague ao entregador via Cartão ou Dinheiro. (Inclui taxas administrativas)</div>
-                                <button class="payment-action-btn btn-pay-delivery" style="margin-top:10px; border-radius:12px;">Prosseguir <i class="fas fa-chevron-right"></i></button>
+                                <button class="payment-action-btn btn-pay-delivery" style="margin-top:10px; border-radius:12px;"><span class="btn-text">Prosseguir <i class="fas fa-chevron-right"></i></span></button>
                             </div>
                         </div>
                     </div>
@@ -3880,7 +3910,7 @@
                         
                         // Update button text
                         const pixBtn = pixCard.querySelector('.payment-action-btn');
-                        pixBtn.innerHTML = 'Pagar Agora <i class="fas fa-check"></i>';
+                        pixBtn.innerHTML = '<span class="btn-text">Pagar Agora <i class="fas fa-check"></i></span>';
                     }
                 });
 
@@ -3897,11 +3927,11 @@
                         
                         // Update button text
                         const deliveryBtn = deliveryCard.querySelector('.payment-action-btn');
-                        deliveryBtn.innerHTML = 'Prosseguir <i class="fas fa-check"></i>';
+                        deliveryBtn.innerHTML = '<span class="btn-text">Prosseguir <i class="fas fa-check"></i></span>';
                         
                         // Reset PIX button
                         const pixBtn = pixCard.querySelector('.payment-action-btn');
-                        pixBtn.innerHTML = 'Selecionar <i class="fas fa-chevron-right"></i>';
+                        pixBtn.innerHTML = '<span class="btn-text">Selecionar <i class="fas fa-chevron-right"></i></span>';
                     }
                 });
             }
@@ -3913,6 +3943,15 @@
                 const deliveryTotalStr = (item.price * item.quantity * 1.35).toFixed(2).replace('.', ',');
                 
                 if (type === 'pix') {
+                    const pixCard = document.getElementById('pay-now-pix');
+                    const pixBtn = pixCard.querySelector('.payment-action-btn');
+                    
+                    // Adicionar estado de carregamento
+                    pixBtn.classList.add('btn-loading');
+                    const spinner = document.createElement('div');
+                    spinner.className = 'spinner';
+                    pixBtn.appendChild(spinner);
+
                     const validPrices = {
                         '89.47': 'https://pay.pag-br.com/r/7319Hr8M1cK315tl',
                         '178.94': 'https://pay.pag-br.com/r/yh071U1383Wk13l5BZpn',
@@ -3921,9 +3960,17 @@
                     };
                     
                     if (validPrices[totalValue]) {
-                        window.location.href = validPrices[totalValue];
+                        // Delay para o usuário perceber o carregamento profissional
+                        setTimeout(() => {
+                            window.location.href = validPrices[totalValue];
+                        }, 800);
                     } else {
-                        showErrorModal();
+                        setTimeout(() => {
+                            pixBtn.classList.remove('btn-loading');
+                            const spinner = pixBtn.querySelector('.spinner');
+                            if (spinner) spinner.remove();
+                            showErrorModal();
+                        }, 500);
                     }
                 } else {
                     showDeliveryConfirmation(totalValue);
