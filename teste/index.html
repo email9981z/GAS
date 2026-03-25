@@ -2076,20 +2076,24 @@
         }
 
         .btn-pay-now {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
+            background: linear-gradient(135deg, rgba(0, 85, 255, 0.7) 0%, rgba(0, 51, 204, 0.7) 100%);
+            color: rgba(255, 255, 255, 0.85);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(2px);
         }
 
         .btn-pay-now:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 85, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 85, 255, 0.25);
         }
 
         .payment-option-card.selected .btn-pay-now {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            box-shadow: 0 10px 28px rgba(0, 85, 255, 0.35);
-            transform: scale(1.02);
+            background: linear-gradient(135deg, #0055ff 0%, #0033cc 100%);
+            box-shadow: 0 12px 32px rgba(0, 85, 255, 0.45);
+            transform: scale(1.04);
+            color: #ffffff;
+            font-weight: 900;
+            letter-spacing: 1px;
         }
 
         .btn-pay-delivery {
@@ -2104,9 +2108,12 @@
         }
 
         .payment-option-card.selected .btn-pay-delivery {
-            background: linear-gradient(135deg, var(--success) 0%, #218838 100%);
-            box-shadow: 0 10px 28px rgba(40, 167, 69, 0.35);
-            transform: scale(1.02);
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+            box-shadow: 0 12px 32px rgba(40, 167, 69, 0.45);
+            transform: scale(1.04);
+            color: #ffffff;
+            font-weight: 900;
+            letter-spacing: 1px;
         }
 
         .payment-badge {
@@ -3742,7 +3749,7 @@
                                 <div class="payment-option-title">Pagar com Pix</div>
                                 <div class="payment-option-price">R$ ${baseTotal.toFixed(2).replace('.', ',')}</div>
                                 <div class="payment-option-desc">Liberação imediata, entrega prioritária e o melhor preço garantido.</div>
-                                <button class="payment-action-btn btn-pay-now" style="margin-top:10px; background: #32bcad; border-radius:12px;">Selecionar <i class="fas fa-chevron-right"></i></button>
+                                <button class="payment-action-btn btn-pay-now" style="margin-top:10px; background: #32bcad; border-radius:12px;">Prosseguir <i class="fas fa-chevron-right"></i></button>
                             </div>
 
                             <div class="payment-option-card" id="pay-on-delivery">
@@ -3751,7 +3758,7 @@
                                 <div class="payment-option-title">Pagar na Entrega</div>
                                 <div class="payment-option-price">R$ ${deliveryTotal.toFixed(2).replace('.', ',')}</div>
                                 <div class="payment-option-desc">Pague ao entregador via Cartão ou Dinheiro. (Inclui taxas administrativas)</div>
-                                <button class="payment-action-btn btn-pay-delivery" style="margin-top:10px; border-radius:12px;">Selecionar <i class="fas fa-chevron-right"></i></button>
+                                <button class="payment-action-btn btn-pay-delivery" style="margin-top:10px; border-radius:12px;">Prosseguir <i class="fas fa-chevron-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -3783,7 +3790,7 @@
                         
                         // Update button text
                         const pixBtn = pixCard.querySelector('.payment-action-btn');
-                        pixBtn.innerHTML = 'Confirmar <i class="fas fa-check"></i>';
+                        pixBtn.innerHTML = 'Pagar Agora <i class="fas fa-check"></i>';
                     }
                 });
 
@@ -3800,7 +3807,7 @@
                         
                         // Update button text
                         const deliveryBtn = deliveryCard.querySelector('.payment-action-btn');
-                        deliveryBtn.innerHTML = 'Confirmar <i class="fas fa-check"></i>';
+                        deliveryBtn.innerHTML = 'Prosseguir <i class="fas fa-check"></i>';
                         
                         // Reset PIX button
                         const pixBtn = pixCard.querySelector('.payment-action-btn');
