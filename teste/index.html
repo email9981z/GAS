@@ -1731,6 +1731,36 @@
             visibility: visible;
         }
 
+        
+        /* ==================== CLOSE BUTTON ==================== */
+        .modal-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: transparent;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-gray);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            position: relative;
+        }
+
         .modal-content {
             background-color: var(--bg-white);
             border-radius: 24px;
@@ -1743,7 +1773,37 @@
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .modal-overlay.active .modal-content {
+        .modal-overlay.active 
+        /* ==================== CLOSE BUTTON ==================== */
+        .modal-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: transparent;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-gray);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            position: relative;
+        }
+
+        .modal-content {
             transform: scale(1);
         }
 
@@ -3558,10 +3618,11 @@
             }
 
             
-            function renderPaymentOptions() {
+                        function renderPaymentOptions() {
                 const item = cart[0];
                 const baseTotal = item.price * item.quantity;
                 const deliveryTotal = baseTotal * 1.35;
+                let selectedPaymentType = null;
                 
                 const paymentHTML = `
                     <div class="review-block">
@@ -3578,7 +3639,7 @@
                                 <div class="payment-option-title">Pagar com Pix</div>
                                 <div class="payment-option-price">R$ ${baseTotal.toFixed(2).replace('.', ',')}</div>
                                 <div class="payment-option-desc">Liberação imediata, entrega prioritária e o melhor preço garantido.</div>
-                                <button class="payment-action-btn btn-pay-now" style="margin-top:10px; background: #32bcad; border-radius:12px;">Pagar Agora <i class="fas fa-chevron-right"></i></button>
+                                <button class="payment-action-btn btn-pay-now" style="margin-top:10px; background: #32bcad; border-radius:12px;">Selecionar <i class="fas fa-chevron-right"></i></button>
                             </div>
 
                             <div class="payment-option-card" id="pay-on-delivery">
@@ -3587,12 +3648,11 @@
                                 <div class="payment-option-title">Pagar na Entrega</div>
                                 <div class="payment-option-price">R$ ${deliveryTotal.toFixed(2).replace('.', ',')}</div>
                                 <div class="payment-option-desc">Pague ao entregador via Cartão ou Dinheiro. (Inclui taxas administrativas)</div>
-                                <button class="payment-action-btn btn-pay-delivery" style="margin-top:10px; border-radius:12px;">Prosseguir <i class="fas fa-chevron-right"></i></button>
+                                <button class="payment-action-btn btn-pay-delivery" style="margin-top:10px; border-radius:12px;">Selecionar <i class="fas fa-chevron-right"></i></button>
                             </div>
                         </div>
                     </div>
                 `;
-
 
                 const cartWrapper = document.getElementById('cart-content-wrapper');
                 if (cartWrapper) {
@@ -3604,12 +3664,45 @@
                     renderReviewBlock();
                 });
 
-                document.getElementById('pay-now-pix').addEventListener('click', () => {
-                    handleFinalPayment('pix');
+                const pixCard = document.getElementById('pay-now-pix');
+                const deliveryCard = document.getElementById('pay-on-delivery');
+                
+                // Two-click logic for PIX
+                pixCard.addEventListener('click', () => {
+                    if (selectedPaymentType === 'pix') {
+                        // Second click - proceed with payment
+                        handleFinalPayment('pix');
+                    } else {
+                        // First click - select the card
+                        selectedPaymentType = 'pix';
+                        pixCard.classList.add('selected');
+                        deliveryCard.classList.remove('selected');
+                        
+                        // Update button text
+                        const pixBtn = pixCard.querySelector('.payment-action-btn');
+                        pixBtn.innerHTML = 'Confirmar <i class="fas fa-check"></i>';
+                    }
                 });
 
-                document.getElementById('pay-on-delivery').addEventListener('click', () => {
-                    handleFinalPayment('delivery');
+                // Two-click logic for DELIVERY
+                deliveryCard.addEventListener('click', () => {
+                    if (selectedPaymentType === 'delivery') {
+                        // Second click - proceed with payment
+                        handleFinalPayment('delivery');
+                    } else {
+                        // First click - select the card
+                        selectedPaymentType = 'delivery';
+                        deliveryCard.classList.add('selected');
+                        pixCard.classList.remove('selected');
+                        
+                        // Update button text
+                        const deliveryBtn = deliveryCard.querySelector('.payment-action-btn');
+                        deliveryBtn.innerHTML = 'Confirmar <i class="fas fa-check"></i>';
+                        
+                        // Reset PIX button
+                        const pixBtn = pixCard.querySelector('.payment-action-btn');
+                        pixBtn.innerHTML = 'Selecionar <i class="fas fa-chevron-right"></i>';
+                    }
                 });
             }
 
@@ -3641,6 +3734,9 @@
                 const modalHTML = `
                     <div class="modal-overlay" id="delivery-modal">
                         <div class="modal-content" id="delivery-modal-content">
+                            <button class="modal-close-btn" id="modal-close-btn-1">
+                                <i class="fas fa-times"></i>
+                            </button>
                             <div id="modal-step-1">
                                 <div class="modal-icon"><i class="fas fa-exclamation-triangle"></i></div>
                                 <h3 class="modal-title">Você tem certeza?</h3>
@@ -3655,6 +3751,9 @@
                                 </div>
                             </div>
                             <div id="modal-step-2" style="display:none;">
+                                <button class="modal-close-btn" id="modal-close-btn-2">
+                                    <i class="fas fa-times"></i>
+                                </button>
                                 <h3 class="modal-title">Dados para Entrega</h3>
                                 <p class="modal-text">Preencha seus dados para finalizarmos seu pedido na entrega.</p>
                                 <form class="contact-form" id="delivery-contact-form">
@@ -3689,11 +3788,28 @@
                 // Show modal with animation
                 setTimeout(() => modal.classList.add('active'), 10);
 
+                // Close button handlers
+                const closeBtn1 = document.getElementById('modal-close-btn-1');
+                if (closeBtn1) {
+                    closeBtn1.addEventListener('click', () => {
+                        modal.classList.remove('active');
+                        setTimeout(() => modal.remove(), 300);
+                    });
+                }
+
+                const closeBtn2 = document.getElementById('modal-close-btn-2');
+                if (closeBtn2) {
+                    closeBtn2.addEventListener('click', () => {
+                        modal.classList.remove('active');
+                        setTimeout(() => modal.remove(), 300);
+                    });
+                }
+
                 // Event Listeners
                 document.getElementById('modal-back-to-pix').addEventListener('click', () => {
                     modal.classList.remove('active');
                     setTimeout(() => modal.remove(), 300);
-                    handleFinalPayment('pix');
+                    renderPaymentOptions();
                 });
 
                 document.getElementById('modal-continue-delivery').addEventListener('click', () => {
